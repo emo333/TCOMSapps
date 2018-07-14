@@ -1,0 +1,219 @@
+﻿@model TCOMSapps.Features.OOSTitles.Titles.TitleCreateViewModel
+@{ ViewBag.Title = "Create"; }
+<br />
+<h3>ADD NEW TITLE</h3>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="row tcoms">
+    <div class="card col-12">
+        <h5> OWNER(S)</h5>
+        <table class="oos-table-fullwide">
+            <tr class="oos-row-short">
+                <td class="control-label"><label asp-for="Title.CustFName"></label></td>
+                <td>
+                    <input asp-for="Title.CustFName" class="form-control" />
+                    <span asp-validation-for="Title.CustFName" class="text-danger"></span>
+                </td>
+                <td>
+                    <input asp-for="Title.CustFName2" tabindex="-1" placeholder="2nd OWNER" class="form-control oos-textbox-grey" />
+                    <span asp-validation-for="Title.CustFName2"></span>
+                </td>
+                <td>
+                    <input asp-for="Title.CustFName3" tabindex="-1" placeholder="3rd OWNER" class="form-control oos-textbox-grey" />
+                    <span asp-validation-for="Title.CustFName3"></span>
+                </td>
+            </tr>
+            <tr class="oos-row-short">
+                <td class="control-label"><label asp-for="Title.CustLName"></label></td>
+                <td>
+                    <input asp-for="Title.CustLName" class="form-control" />
+                    <span asp-validation-for="Title.CustLName" class="text-danger"></span>
+                </td>
+                <td><input asp-for="Title.CustLName2" tabindex="-1" placeholder="2nd OWNER" class="form-control oos-textbox-grey" /></td>
+                <td><input asp-for="Title.CustLName3" tabindex="-1" placeholder="3rd OWNER" class="form-control oos-textbox-grey" /></td>
+            </tr>
+        </table>
+        <div class="container">
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label asp-for="Title.CustAddr1" class="control-label"></label>
+                    <div>
+                        <input asp-for="Title.CustAddr1" class="form-control" />
+                        <span asp-validation-for="Title.CustAddr1" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label asp-for="Title.CustAddr2" class="control-label"></label>
+                    <div>
+                        <input asp-for="Title.CustAddr2" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label asp-for="Title.CustCity" class="control-label"></label>
+                    <div>
+                        <input asp-for="Title.CustCity" class="form-control" />
+                        <span asp-validation-for="Title.CustCity" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label asp-for="Title.CustState" class="control-label"></label>
+                    <div>
+                        <input asp-for="Title.CustState" class="form-control" />
+                        <span asp-validation-for="Title.CustState" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label asp-for="Title.CustZip" class="control-label"></label>
+                    <div>
+                        <input asp-for="Title.CustZip" class="form-control" />
+                        <span asp-validation-for="Title.CustZip" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="form-group col-sm-3">
+                    <label asp-for="Title.CustPhone" class="control-label"></label>
+                    <div>
+                        <input asp-for="Title.CustPhone" class="form-control" />
+                        <span asp-validation-for="Title.CustPhone" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label asp-for="Title.CustPhone2" class="control-label"></label>
+                    <div>
+                        <input asp-for="Title.CustPhone2" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label asp-for="Title.CustEmail" class="control-label"></label>
+                    <div>
+                        <input asp-for="Title.CustEmail" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row tcoms">
+    <div class="card col-12">
+        <div style="display: inline-block">
+            <h5 style="display: inline-block">VEHICLE TITLE INFO</h5>
+            <div style="display: inline" class="form-group col-sm-4">
+                <label asp-for="Title.NewVeh" class="control-label"></label>
+                @Html.CheckBoxFor(model => model.Title.NewVeh, new { htmlAttributes = new { @class = "form-control oos-check" } })
+                <span asp-validation-for="Title.NewVeh" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label asp-for="Title.RecDt" class="control-label"></label>
+                    <div>
+                        <input asp-for="Title.RecDt" class="form-control" />
+                        <span asp-validation-for="Title.RecDt" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label asp-for="Title.Vin" class="control-label"></label>
+                    <div>
+                        <input asp-for="Title.Vin" class="form-control" />
+                        <span asp-validation-for="Title.Vin" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label asp-for="Title.TitleState" class="control-label"></label>
+                    <div>
+                        <input asp-for="Title.TitleState" class="form-control" />
+                        <span asp-validation-for="Title.TitleState" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label asp-for="Title.VehYr" class="control-label"></label>
+                    <div>
+                        <input asp-for="Title.VehYr" class="form-control" />
+                        <span asp-validation-for="Title.VehYr" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label asp-for="Title.VehMake" class="control-label"></label>
+                    <div>
+                        <input asp-for="Title.VehMake" class="form-control" />
+                        <span asp-validation-for="Title.VehMake" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label asp-for="Title.VehModel" class="control-label"></label>
+                    <div>
+                        <input asp-for="Title.VehModel" class="form-control" />
+                        <span asp-validation-for="Title.VehModel" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="form-group col-sm-3">
+                    <label asp-for="Title.InitialLocation" class="control-label"></label>
+                    <div>
+                        @Html.DropDownListFor(model => model.Title.InitialLocation, Model.InitialLocationSelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label asp-for="Title.RecMethod" class="control-label"></label>
+                    <div>
+                        @Html.DropDownListFor(model => model.Title.RecMethod, Model.TitleRecMethodSelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group col-sm-2 oos-radio-group">
+                    @foreach (var m in Model.TitleRecFromSelectList)
+                    {
+                    <div>
+                        <span class="control-label">@m.Text</span>
+                        <div class="oos-radio-inline">
+                            <input asp-for="Title.TitleRecievedFromType" id='tit-@m.Text' value="@m.Text" type="radio" />
+                        </div>
+                    </div>
+                    }
+                </div>
+                <div class="form-group col-sm-4">
+                    <label asp-for="Title.TitleIssueDt" class="control-label"></label>
+                    <div>
+                        <input asp-for="Title.TitleIssueDt" class="form-control" />
+                        <span asp-validation-for="Title.TitleIssueDt" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group col-sm-12 col-md-12 col-lg-12">
+    <div>
+        <input type="submit" value="Add" class="btn btn-success" />
+        <a asp-controller="OosTitlesDashboard" asp-action="Index" class="btn btn-outline-light">CANCEL</a>
+    </div>
+</div>
+    @Html.HiddenFor(model => model.Title.EntryDt)
+    @Html.HiddenFor(model => model.Title.UserId)
+}
+@section MyScripts {
+<script type="text/javascript">
+    $('#Title_NewVeh').click(function () {
+        var chkbox = document.getElementById('Title_NewVeh');
+        if (chkbox.checked) {
+            $('#tit-Dealer').prop('checked', true);
+        };
+    });
+</script>
+}

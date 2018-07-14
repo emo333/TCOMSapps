@@ -1,0 +1,67 @@
+﻿@model TCOMSapps.Features.OOSTitles.SearchTitle.SearchTitleViewModel
+@{ ViewBag.Title = "Search"; }
+@{
+    var prevDisabledCss = !Model.PaginatedTitles.HasPreviousPage ? "disabled" : "";
+    var nextDisabledCss = !Model.PaginatedTitles.HasNextPage ? "disabled" : "";
+}
+<br /><h2>SEARCH TITLES</h2><br />
+@using (Html.BeginForm("Search", "SearchTitle", FormMethod.Post))
+{
+    <div class="container">
+        <div class="row">
+            <table class="oos-row-short">
+                <tr>
+                    <td><div><input type="submit" value="SEARCH" class="btn btn-primary"/></div></td>
+                    <td><div>@Html.LabelFor(t => t.Title.Vin, new { @class = "control-label" })</div></td>
+                    <td><div>@Html.TextBoxFor(t => t.Title.Vin, new { @class = "form-control" })</div></td>
+                    <td><div>@Html.LabelFor(t => t.Title.CustFName, new { @class = "control-label" })</div></td>
+                    <td><div>@Html.TextBoxFor(t => t.Title.CustFName, new { @class = "form-control" })</div></td>
+                    <td><div>@Html.LabelFor(t => t.Title.CustLName, new { @class = "control-label " })</div></td>
+                    <td><div>@Html.TextBoxFor(t => t.Title.CustLName, new { @class = "form-control" })</div></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <br />
+    <div class="panel panel-primary">
+        <table class="table table-dark">
+            <tr>
+                <td><button class="btn btn-sm btn-link" asp-action="Search" asp-route-sortOrder="@ViewData["CustFNameSortParm"]">@Html.DisplayNameFor(model => model.Title.CustFName)</button></td>
+                <td><button class="btn btn-sm btn-link" asp-action="Search" asp-route-sortOrder="@ViewData["CustLNameSortParm"]">@Html.DisplayNameFor(model => model.Title.CustLName)</button></td>
+                <td>@Html.DisplayNameFor(model => model.Title.Vin)</td>
+                <td>@Html.DisplayNameFor(model => model.Title.TitleState)</td>
+                <td>@Html.DisplayNameFor(model => model.Title.VehYr)</td>
+                <td>@Html.DisplayNameFor(model => model.Title.VehMake)</td>
+                <td>@Html.DisplayNameFor(model => model.Title.VehModel)</td>
+                <td>@Html.DisplayNameFor(model => model.Title.RecDt)</td>
+                <td></td>
+            </tr>
+            @foreach (var item in Model.PaginatedTitles)
+            {
+                <tr class="tcoms-data-color">
+                    <td>@Html.DisplayFor(modelItem => item.CustFName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CustLName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Vin)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TitleState)</td>
+                    <td>@Html.DisplayFor(modelItem => item.VehYr)</td>
+                    <td>@Html.DisplayFor(modelItem => item.VehMake)</td>
+                    <td>@Html.DisplayFor(modelItem => item.VehModel)</td>
+                    <td>@Html.DisplayFor(modelItem => item.RecDt)</td>
+                    <td><a asp-controller="Titles" asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-light">DETAILS</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="tcoms-pagination-nav-container">
+        <div class="tcoms-pagination-nav">
+            <button asp-action="Search" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-page="@(Model.PaginatedTitles.PageIndex - 1)" asp-route-currentFilter="@ViewData["CurrentFilter"]" class="btn btn-info btn-outline-light @prevDisabledCss">Previous</button>
+            @for (var i = 1; i <= int.Parse(ViewData["Pages"].ToString()); i++)
+            {
+                var curpgDisabledCss = (Model.PaginatedTitles.PageIndex == i) ? "disabled" : "";
+                <button asp-action="Search" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-page="@i" asp-route-currentFilter="@ViewData["CurrentFilter"]" class="btn btn-info btn-outline-light @curpgDisabledCss">@i</button>
+            }
+            <button asp-action="Search" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-page="@(Model.PaginatedTitles.PageIndex + 1)" asp-route-currentFilter="@ViewData["CurrentFilter"]" class="btn btn-info btn-outline-light @nextDisabledCss">Next</button>
+        </div>
+    </div>
+}
+@section MyScripts {<script type="text/javascript">$('button.disabled').prop('disabled', true);</script>}

@@ -1,0 +1,118 @@
+﻿@model TCOMSapps.Features.OOSTitles.Dashboard.OosTitlesDashboardViewModel
+@{ ViewBag.Title = "OOS Titles Dashboard"; }
+<br />
+<table>
+    <tr class="oos-row-short">
+        <td class="oos-row-short"><div class="clearfix"><h3>OOS TITLES DASHBOARD </h3></div></td>
+        <td>&nbsp;</td>
+        <td><a asp-controller="SearchTitle" asp-action="Search" class="btn btn-primary btn-sm">SEARCH</a></td>
+        <td><a asp-controller="Titles" asp-action="Create" class="btn btn-primary btn-sm">NEW TITLE</a></td>
+        @if (await Model.UserManager.IsInRoleAsync(Model.OosTitlesUser, "OOSTitles Admin"))
+        {
+            <td><a asp-controller="Admin" asp-action="Index" class="btn btn-primary btn-sm">ADMINISTRATION</a></td>
+            <td hidden><a asp-controller="Titles" asp-action="Index" class="btn btn-primary btn-sm">TITLES</a></td>
+        }
+    </tr>
+</table>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">FOLLOWUP</div>
+                <div>
+                    <ul>
+                        @foreach (var item in Model.TitlesWithFollowup)
+                        {
+                            <li>
+                                <div class=" oos-marg-vert">
+                                    <a asp-controller="Titles" asp-action="Details" asp-route-id="@item.Id" class="btn btn-info oos-compact">
+                                        @item.CustFName<span> @item.CustLName - @item.VehYr @item.VehMake @item.VehModel</span>
+                                    </a>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">WARNING NEEDED</div>
+                <div>
+                    <ul>
+                        @foreach (var item in Model.TitlesWithOverdue)
+                        {
+                            <li>
+                                <div class="oos-marg-vert">
+                                    <a class="btn btn-warning oos-compact" href="@Url.Action("Details", "Titles", new {id = item.Id})">
+                                        @item.CustFName<span> @item.CustLName - @item.VehYr @item.VehMake @item.VehModel</span>
+                                    </a>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">RETURN TITLE</div>
+                <div>
+                    <ul>
+                        @foreach (var item in Model.TitlesNeedReturned)
+                        {
+                            <li>
+                                <div class="oos-marg-vert">
+                                    <a class="btn btn-danger oos-compact" href="@Url.Action("Details", "Titles", new {id = item.Id})">
+                                        @item.CustFName<span> @item.CustLName - @item.VehYr @item.VehMake @item.VehModel</span>
+                                    </a>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @foreach (var location in Model.GetCurrentCountyLocations(Guid.Parse(Model.UserManager.GetUserId(User))))
+    {
+        <div class="row tcoms">
+            <div class="card col-12">
+                <h3>@location.Name </h3>
+                <div class="oos-two-cols">
+                    <ul>
+                        @foreach (var item in Model.GetTitlesAtLocation(location.Id))
+                        {
+                            <li>
+                                <div class="oos-marg-vert">
+                                    @if (item.RequestedNotRouted)
+                                    {
+                                        <a asp-controller="Titles" asp-action="Details" asp-route-id="@item.Id" class="btn btn-danger oos-compact">
+                                            @item.CustFName<span> @item.CustLName - @item.VehYr @item.VehMake @item.VehModel</span>
+                                        </a>
+                                    }
+                                    else if (item.RoutedNotReceived)
+                                    {
+                                        <a asp-controller="Titles" asp-action="Details" asp-route-id="@item.Id" class="btn btn-warning oos-compact">
+                                            @item.CustFName<span> @item.CustLName - @item.VehYr @item.VehMake @item.VehModel</span>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="Titles" asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary oos-compact">
+                                            @item.CustFName<span> @item.CustLName - @item.VehYr @item.VehMake @item.VehModel</span>
+                                        </a>
+                                    }
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@section MyScripts {
+    <script type="text/javascript"></script>}

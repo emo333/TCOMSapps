@@ -1,0 +1,38 @@
+﻿@model TCOMSapps.Features.Admin.RegisterRoleViewModel
+@{ ViewData["Title"] = "ADD NEW TCOMS Apps ROLE"; }
+<br />
+<h2>@ViewData["Title"]</h2>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label tcoms-data-color"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <span class="tcoms-data-color">Select County</span>
+            <div class="form-group">
+                <select asp-for="CountyId" class="form-control">
+                    @foreach (var county in Model.Counties)
+                    {
+                        <option id='@county.Id.ToString()' value="@county.Id.ToString()">@county.Name</option>
+                    }
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success">Add New Role</button>
+            <a asp-controller="Admin" asp-action="AdminDashboard" class="btn btn-outline-light">CANCEL</a>
+        </form>
+    </div>
+</div>
+<hr />
+<h5>TCOMS Apps ROLES</h5>
+@foreach (var role in Model.ApplicationRoles)
+{
+    <div>
+        <span class="tcoms-data-color">@role.Name</span> type: @role.RoleTypeId
+    </div>
+}
+@section Scripts {
+    @* ReSharper disable once Mvc.PartialViewNotResolved *@
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

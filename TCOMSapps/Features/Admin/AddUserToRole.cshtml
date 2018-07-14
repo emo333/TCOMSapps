@@ -1,0 +1,33 @@
+﻿@model TCOMSapps.Features.Admin.AdministerUserViewModel
+@{ ViewData["Title"] = "Administer Application User"; }
+<br />
+<h2>Add Application User To Application Role</h2><hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddUserToRole">
+            <span class="tcoms-data-color">Select User</span>
+            <div class="form-group">
+                <select asp-for="AppUser.Id" class="form-control">
+                    @foreach (var user in Model.CountyUsers)
+                    {
+                        <option id='@user.Id.ToString()' value="@user.Id.ToString()">@user.FirstName</option>
+                    }
+                </select>
+            </div>
+            <span class="tcoms-data-color">Select Role</span>
+            <div class="form-group">
+                <select asp-for="AppRole.Id" class="form-control">
+                    @foreach (var role in Model.AppRoles)
+                    {
+                        <option id='@role.Id.ToString()' value="@role.Id.ToString()">@role.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add User To Rolee" class="btn btn-success" />
+                <a asp-controller="Admin" asp-action="AdminDashboard" class="btn btn-outline-light">CANCEL</a>
+            </div>
+        </form>
+    </div>
+</div>
+

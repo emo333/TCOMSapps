@@ -1,0 +1,17 @@
+﻿@model TCOMSapps.Features.OOSTitles.Admin.AdministerOosTitlesUserViewModel
+@{ ViewBag.Title = "Index";}
+<br />
+@if (await Model._userManager.IsInRoleAsync(Model.OosTitlesUser, "OOSTitles Admin"))
+{
+  <table>
+    <tr class="oos-row-short">
+      <td class="oos-row-short"></td>
+      <td><a class="btn btn-warning btn-sm" href="@Url.Action("Index", "Locations")">OFFICES</a></td>
+      <td><a class="btn btn-warning btn-sm" href="@Url.Action("Index", "Counties")">COUNTIES</a></td>
+      <td><a class="btn btn-warning btn-sm" href="@Url.Action("AddoosTitleUserToRole", "Admin")">Add User to Role</a></td>
+    </tr>
+  </table>
+}
+<br />
+<br />
+<p>Import/Export Data.</p>

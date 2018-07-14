@@ -1,0 +1,59 @@
+﻿@model TCOMSapps.Features.OOSTitles.Interactions.PhoneCallViewModel
+@{ ViewData["Title"] = "PhoneCall"; }
+<br />
+<h2>Phone Call</h2>
+<hr />
+<form asp-action="PhoneCall">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="container">
+        <div class="row">
+            <div class="form-group col-sm-5">
+                <label asp-for="Interaction.CustPhone" class="control-label"></label>
+                <div>
+                    <input asp-for="Interaction.CustPhone" class="form-control" />
+                    <span asp-validation-for="Interaction.CustPhone" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group col-sm-5">
+                <label asp-for="Interaction.CustPhone2" class="control-label"></label>
+                <div>
+                    <input asp-for="Interaction.CustPhone2" class="form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="form-group col-md-12">
+                <div>
+                    <label asp-for="Interaction.Notes" class="control-label"></label>
+                    <span id="notesinstructionsicon" style="color: aquamarine;"><i class="fab fa-comment"></i></span>
+                    <div id="notesinstructions" hidden class="row">
+                        <div class="form-group col-md-12">
+                            <div class="alert alert-info" role="alert">
+                                Enter notes of the phone call.  Who, what was asked, and what were the answers.
+                            </div>
+                        </div>
+                    </div>
+                    <textarea asp-for="Interaction.Notes" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save Phone Call" class="btn btn-success" />&nbsp;
+            <a asp-controller="Titles" asp-action="Details" asp-route-id="@Model.Interaction.TitleId" class="btn btn-outline-light">CANCEL</a>
+        </div>
+    </div>
+    <input hidden asp-for="Interaction.TitleId" />
+</form>
+@section MyScripts {
+    <script type="text/javascript">
+        $('#notesinstructionsicon').click(function () {
+            if ($('#notesinstructions').is(":visible")) {
+                $('#notesinstructions').attr("hidden", "true");
+            } else {
+                $('#notesinstructions').removeAttr('hidden');
+            };
+        });
+    </script>
+}

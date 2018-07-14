@@ -1,0 +1,37 @@
+﻿@model TCOMSapps.Features.OOSTitles.Admin.AdministerOosTitlesUserViewModel
+@{
+    ViewData["Title"] = "ADD TITLE USER TO ROLE";
+}
+<br />
+<h2>Add User To Role</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddUserToRole">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <span class="tcoms-data-color">Select User</span>
+            <div class="form-group">
+                <select asp-for="OosTitlesUser" class="form-control">
+                    @foreach (var user in Model.OosTitlesCountyUsers)
+                    {
+                        <option id='@user.Id' value="@user.Id">@user.FirstName</option>
+                    }
+                </select>
+            </div>
+            <span class="tcoms-data-color">Select Role</span>
+            <div class="form-group">
+                <select asp-for="OosTitlesRole" class="form-control">
+                    @foreach (var role in Model.OosTitlesRoles)
+                    {
+                        <option id='@role.Id' value="@role.Id">@role.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add User To Role" class="btn btn-success" />
+                <a asp-controller="OosTitlesDashboard" asp-action="Index" class="btn btn-outline-light">CANCEL</a>
+            </div>
+        </form>
+    </div>
+</div>
+
