@@ -1,0 +1,85 @@
+﻿@using TCOMSapps.Data
+@inject RoleManager<ApplicationRole> RoleManager
+@inject UserManager<ApplicationUser> UserManager
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@ViewData["Title"] - TCOMS Apps</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <environment include="Development"></environment>
+  <environment exclude="Development">
+    @*<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/4.0.0/css/bootstrap.min.css"
+            asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+            asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+      <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />*@
+  </environment>
+  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="~/css/site.css" />
+  <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" asp-controller="Home" asp-action="Index">TCOMS Apps</a>
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarNavAltMarkup">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      @if (await UserManager.GetUserAsync(User) != null)
+      {
+        <ul class="navbar-nav">
+          @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "OOSTitles User")
+          || await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "OOSTitles Administrator"))
+          {
+            <li class="nav-item nav-link"><a asp-controller="OosTitlesDashboard" asp-action="Index" class="btn btn-outline-info">OOS Titles</a></li>
+          }
+
+          @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "TCOMS Apps Administrator"))
+          {
+            <li class="nav-item nav-link"><a asp-controller="Admin" asp-action="AdminDashboard" class="btn btn-outline-info">ADMIN</a></li>
+          }
+        </ul>
+      }
+      @* ReSharper disable once Mvc.PartialViewNotResolved *@
+      @await Html.PartialAsync("_LoginPartial")
+    </div>
+  </nav>
+  <div class="container body-content">
+    @RenderBody()
+    <br />
+    <footer style="color:dimgray;"><p>&copy; 2018 - TCOMS Apps</p></footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="~/js/site.js" asp-append-version="true"></script>
+
+  <environment include="Development"></environment>
+
+  <environment exclude="Development">
+    @*<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+              asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+              asp-fallback-test="window.jQuery"
+              crossorigin="anonymous"
+              integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+      </script>
+      <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/4.0.0/bootstrap.min.js"
+              asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+              asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+              crossorigin="anonymous"
+              integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+      </script>
+      <script src="~/js/site.min.js" asp-append-version="true"></script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+      <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+      <script src="~/js/site.js" asp-append-version="true"></script>*@
+  </environment>
+  @RenderSection("Scripts", required: false)
+  @RenderSection("MyScripts", required: false)
+</body>
+</html>

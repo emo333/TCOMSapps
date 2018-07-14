@@ -1,0 +1,85 @@
+﻿@model TCOMSapps.Features.Admin.EditUserProfileViewModel
+@{ ViewData["Title"] = "EDIT USER Profile"; }
+<br />
+<h4>@ViewData["Title"]</h4>
+<form method="post">
+  <div class="container">
+    <div class="row tcoms">
+      <div class="card col-4">
+        <div class="">
+          <div asp-validation-summary="All" class="text-danger"></div>
+          <input hidden asp-for="Username" />
+          <div hidden class="form-group">
+            <input asp-for="ApplicationUser.UserName" class="form-control" disabled />
+          </div>
+          <div class="form-group">
+            <label asp-for="ApplicationUser.Email" class="control-label"></label>
+            <input asp-for="ApplicationUser.Email" class="form-control" />
+            <span asp-validation-for="ApplicationUser.Email" class="text-danger"></span>
+          </div>
+          <div class="form-group">
+            <label asp-for="ApplicationUser.FirstName" class="control-label"></label>
+            <input asp-for="ApplicationUser.FirstName" class="form-control" />
+            <span asp-validation-for="ApplicationUser.FirstName" class="text-danger"></span>
+          </div>
+          <div class="form-group">
+            <label asp-for="ApplicationUser.LastName" class="control-label"></label>
+            <input asp-for="ApplicationUser.LastName" class="form-control" />
+            <span asp-validation-for="ApplicationUser.LastName" class="text-danger"></span>
+          </div>
+          <div class="form-group">
+            <label asp-for="ApplicationUser.PhoneNumber" class="control-label">Phone Number</label>
+            <input asp-for="ApplicationUser.PhoneNumber" class="form-control" />
+            <span asp-validation-for="ApplicationUser.PhoneNumber" class="text-danger"></span>
+          </div>
+
+          <div class="form-group">
+            <label asp-for="ApplicationUser.SupervisorId" class="control-label"></label>
+            <select asp-for="ApplicationUser.SupervisorId" class="form-control">
+              @foreach (var user in Model.Users)
+              {
+                if (user.Id == Model.ApplicationUser.SupervisorId)
+                {
+                  <option value="@user.Id" selected>@user.FirstName @user.LastName</option>
+                }
+                else
+                {
+                  <option value="@user.Id">@user.FirstName @user.LastName</option>
+                }
+              }
+            </select>
+          </div>
+          <div hidden class="form-group">
+            <label>County</label>
+            @*@Html.DropDownListFor(model => model.County.Id, Model.CountySelectList, new { @class = "form-control" })*@
+          </div>
+          <div hidden class="form-group">
+            <label asp-for="Id"></label>
+            <input asp-for="Id" class="form-control" />
+            <span asp-validation-for="Id" class="text-danger"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card col-4">
+        ROLES:
+        @foreach (var rolename in Model.AppRoleNames)
+        {
+          <div class="tcoms-data-color">
+            @rolename
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-success">Save</button>
+</form>
+
+
+
+
+
+@section Scripts {
+  @* ReSharper disable once Mvc.PartialViewNotResolved *@
+  @await Html.PartialAsync("_ValidationScriptsPartial")
+}

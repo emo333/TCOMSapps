@@ -1,0 +1,82 @@
+﻿@model TCOMSapps.Features.OOSTitles.Titles.TitleViewModel
+@{ ViewBag.Title = "Delete"; }
+<h2>Delete</h2>
+<h3>Are you sure you want to delete this TITLE?</h3>
+<div>
+    @using (Html.BeginForm())
+    {
+        <hr />
+        <dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.Title.Vin)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title.Vin)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Title.TitleState)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title.TitleState)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Title.VehYr)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title.VehYr)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Title.VehMake)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title.VehMake)
+            </dd>
+            @Html.HiddenFor(model => model.Title.Id)
+            @Html.HiddenFor(model => model.Title.Vin)
+            @Html.HiddenFor(model => model.Title.TitleState)
+            @Html.HiddenFor(model => model.Title.VehYr)
+            @Html.HiddenFor(model => model.Title.VehMake)
+            @Html.HiddenFor(model => model.Title.VehModel)
+            @Html.HiddenFor(model => model.Title.NewVeh)
+            @Html.HiddenFor(model => model.Title.TitleIssueDt)
+            @Html.HiddenFor(model => model.Title.EntryDt)
+            @Html.HiddenFor(model => model.Title.UserId)
+            @Html.HiddenFor(model => model.Title.RecDt)
+            @Html.HiddenFor(model => model.Title.RecMethod)
+            @Html.HiddenFor(model => model.Title.InitialLocation)
+            @Html.HiddenFor(model => model.Title.CustFName)
+            @Html.HiddenFor(model => model.Title.CustLName)
+            @Html.HiddenFor(model => model.Title.CustAddr1)
+            @Html.HiddenFor(model => model.Title.CustAddr2)
+            @Html.HiddenFor(model => model.Title.CustCity)
+            @Html.HiddenFor(model => model.Title.CustState)
+            @Html.HiddenFor(model => model.Title.CustZip)
+            @Html.HiddenFor(model => model.Title.CustPhone)
+            @Html.HiddenFor(model => model.Title.CustFName2)
+            @Html.HiddenFor(model => model.Title.CustLName2)
+            @Html.HiddenFor(model => model.Title.CustFName3)
+            @Html.HiddenFor(model => model.Title.CustLName3)
+            @Html.HiddenFor(model => model.Title.SentToDmvDt)
+            @Html.HiddenFor(model => model.Title.SentBackToLhDlrDt)
+            @Html.HiddenFor(model => model.Title.TitleRecievedFromType)
+            @Html.HiddenFor(model => model.Title.IsDeleted)
+            @Html.HiddenFor(model => model.Title.DeletedDt)
+            @Html.HiddenFor(model => model.Title.DeletedBy)
+            @Html.HiddenFor(model => model.Title.CountyId)
+            @Html.HiddenFor(model => model.Title.LastInteraction)
+            @Html.HiddenFor(model => model.Title.LastTransfer)
+        </dl>
+        @Html.AntiForgeryToken()
+        <div>
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            <a asp-controller="OosTitlesDashboard" asp-action="Index" class="btn btn-outline-light">CANCEL</a>
+        </div>
+    }
+</div>

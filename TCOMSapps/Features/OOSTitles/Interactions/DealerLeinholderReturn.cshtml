@@ -1,0 +1,110 @@
+﻿@model TCOMSapps.Features.OOSTitles.Interactions.DealerLeinholderReturnViewModel
+@using TCOMSapps.Features.OOSTitles.entities
+@{
+    ViewData["Title"] = "Title Return";
+}
+<br />
+<h3>TITLE RETURN TO
+    <span>
+        @if(@Model.Interaction.TitleRecievedFromType == @Interaction.TitleReceivedFromTypes.Dealer){
+            <label>DEALER</label>
+        }else{
+            <label>LIENHOLDER</label>
+        }
+    </span>
+</h3>
+
+<div>
+
+</div>
+
+<form id="returntitleform" asp-action="DealerLeinholderReturn" method="post">
+    <div class="container">
+        <div class="form-group">
+            <label class="control-label">Company Name</label>
+            <input asp-for="Interaction.LhDlrName" class="form-control" />
+            <span asp-validation-for="Interaction.LhDlrName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Address Line 1</label>
+            <input asp-for="Interaction.LhDlrAddr1" class="form-control" />
+            <span asp-validation-for="Interaction.LhDlrAddr1" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Address Line 2</label>
+            <input asp-for="Interaction.LhDlrAddr2" class="form-control" />
+            <span asp-validation-for="Interaction.LhDlrAddr2" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 form-group">
+                <label class="control-label">City</label>
+                <div>
+                    <input asp-for="Interaction.LhDlrCity" class="form-control" />
+                    <span asp-validation-for="Interaction.LhDlrCity" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2 form-group">
+                <label class="control-label">State</label>
+                <div>
+                    <input asp-for="Interaction.LhDlrState" class="form-control" />
+                    <span asp-validation-for="Interaction.LhDlrState" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3 form-group">
+                <label class="control-label">Zip</label>
+                <div>
+                    <input asp-for="Interaction.LhDlrZip" class="form-control" />
+                    <span asp-validation-for="Interaction.LhDlrZip" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <input id="returntitle" name="name" value="RETURN TITLE" class="btn btn-warning" />
+    <a asp-controller="Titles" asp-action="Details" asp-route-id="@Model.Interaction.TitleId" class="btn btn-outline-light">CANCEL</a>
+
+    <input hidden asp-for="Interaction.TitleId" />
+    <input hidden asp-for="Interaction.Vin" />
+    <input hidden asp-for="Interaction.TitleState" />
+    <input hidden asp-for="Interaction.VehYr" />
+    <input hidden asp-for="Interaction.VehMake" />
+    <input hidden asp-for="Interaction.VehModel" />
+    <input hidden asp-for="Interaction.IsNew" />
+    <input hidden asp-for="Interaction.TitleIssuedDt" />
+    <input hidden asp-for="Interaction.InteractionDt" />
+    <input hidden asp-for="Interaction.InteractionUserId" />
+    <input hidden asp-for="Interaction.ReceivedDt" />
+    <input hidden asp-for="Interaction.CustFName" />
+    <input hidden asp-for="Interaction.CustLName" />
+    <input hidden asp-for="Interaction.CustAddr1" />
+    <input hidden asp-for="Interaction.CustAddr2" />
+    <input hidden asp-for="Interaction.CustCity" />
+    <input hidden asp-for="Interaction.CustState" />
+    <input hidden asp-for="Interaction.CustZip" />
+    <input hidden asp-for="Interaction.CustPhone" />
+    <input hidden asp-for="Interaction.CustPhone2" />
+    <input hidden asp-for="Interaction.CustFName2" />
+    <input hidden asp-for="Interaction.CustLName2" />
+    <input hidden asp-for="Interaction.CustFName3" />
+    <input hidden asp-for="Interaction.CustLName3" />
+    <input hidden asp-for="Interaction.InteractionType" />
+    <input hidden asp-for="Interaction.TitleRecievedFromType" />
+</form>
+<br />
+
+@section MyScripts {
+    <script type="text/javascript">
+        $('#returntitle').click(function () {
+
+            window.open("/OOSTitles/Dashboard/Index", '_blank');
+            document.getElementById('returntitleform').submit();
+        });
+    </script>
+}
+
+
+
+

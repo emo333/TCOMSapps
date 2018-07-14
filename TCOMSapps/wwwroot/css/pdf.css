@@ -1,0 +1,85 @@
+﻿body {
+    font-family: Calibri;
+}
+
+header address {
+    font-size: 0.8em;
+}
+
+footer {
+    text-align: center;
+}
+
+footer address {
+    font-style: normal;
+    font-size: 0.8em;
+    text-align: center;
+    display: inline-block;
+    font-weight: 100;
+}
+
+header {
+    height: 134px;
+}
+
+header img {
+    width: 128px;
+    height: 130px;
+}
+
+section {
+    height: 1020px;
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-top: 25px;
+    font-size: 1.1em;
+}
+
+section ul {
+    list-style-type: none;
+
+}
+
+.pdf-address-name {
+    font-weight: bold;
+}
+
+.pdf-header-container {
+    display: grid;
+}
+
+.pdf-important-items > li {
+    font-weight: bolder;
+    list-style-type: disc;
+}
+
+.pdf-letter-subject {
+    font-size: 1.3em;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.pdf-official-name {
+    font-size: 1.4em;
+    font-weight: bold;
+    width: 150px;
+    display: inline-block;
+    text-align: right;
+}
+
+.pdf-official-name div {
+    width: 150px;
+    text-align: center;
+}
+
+.pdf-topright {
+    display: inline-block;
+    text-align: right;
+    width: 748px;
+    height: 134px;
+    vertical-align: top;
+}
+
+.pdf-topleft {
+    display: inline-block;
+}

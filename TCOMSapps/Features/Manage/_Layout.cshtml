@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "/Features/Shared/_Layout.cshtml";
+}
+<br />
+<h3>Manage your account</h3>
+
+<div>
+    <hr />
+    <div class="row">
+        <div class="col-md-3">
+            @* ReSharper disable once Mvc.PartialViewNotResolved *@
+            @await Html.PartialAsync("_ManageNav")
+        </div>
+        <div class="col-md-9">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}
+

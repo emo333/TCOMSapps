@@ -1,0 +1,117 @@
+﻿@using TCOMSapps.Features.OOSTitles.entities
+@model Interaction
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>Title Return Letter</title>
+    <link href="~/css/pdf.css" rel="stylesheet" />
+</head>
+<body lang="EN-US">
+    <header>
+        <div class="pdf-topleft">
+            <img src="~/images/nctcseal.jpg" />
+        </div>
+        <div class="pdf-topright">
+            <div class="pdf-official-name">
+                <div>
+                    John M. Drew
+                </div>
+                <div>
+                    Tax Collector
+                </div>
+            </div>
+            <address>
+                <br />
+                86130 License Road<br />
+                Fernandina Beach, FL 32034<br />
+                www.nassautaxes.com
+            </address>
+        </div>
+        <hr />
+    </header>
+
+    <section>
+        <div>
+            @Model.InteractionDt.ToLongDateString()
+        </div>
+        <br />
+        <div>
+            <b>@Model.LhDlrName</b>
+            <address>
+                @Model.LhDlrAddr1 <br />
+                @if (Model.CustAddr2 != null)
+                {@Model.LhDlrAddr1 <br />}
+                @Model.LhDlrCity , @Model.LhDlrState @Model.LhDlrZip
+            </address>
+        </div>
+        <br /><br />
+        <div class="pdf-letter-subject">
+            Re: Title for @Model.VehYr @Model.VehMake @Model.VehModel VIN# @Model.Vin
+        </div>
+
+        <p>
+            We are returning the enclosed title work and associated paperwork that we received from your office due to
+            the length of time we have held it without any response from the customer.
+        </p>
+
+        <p>
+            Please call (904) 491‐7400 and choose option 4, between 8:00 am ‐ 5:00 pm Monday ‐ Friday, if you have any questions.
+        </p>
+
+        <br /><br /><br />
+
+        <p>
+            Thank you for the opportunity to serve you!
+        </p>
+        Motor Services Department
+        <br />
+        <i><small>Representing John M. Drew, Tax Collector ‐ Nassau County</small></i>
+        <p>
+
+        </p>
+
+    </section>
+
+    <footer>
+        <hr />
+        <div>
+            <address>
+                <span class="pdf-address-name">Tax Collector's Office</span><br />
+                86130 License Raod<br />
+                Fernandina Beach, FL 32034
+            </address>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <address>
+                <span class="pdf-address-name">Historic Courthouse</span><br />
+                416 Centre Street<br />
+                Fernandina Beach, FL 32034
+            </address>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <address>
+                <span class="pdf-address-name">Callahan Office</span><br />
+                450077 SR 200, Suite 13<br />
+                Callahan FL, 32011
+            </address>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <address>
+                <span class="pdf-address-name">Hilliard Office</span><br />
+                15885 CR 108<br />
+                Hilliard, FL 32046
+            </address>
+        </div>
+        <div>&nbsp;</div>
+        <div>
+            <address>
+                (904) 491-7400 / (866) 815-4690    Fax (904) 432-0220<br />
+                www.nassautaxes.com
+            </address>
+        </div>
+    </footer>
+</body>
+
+</html>
+

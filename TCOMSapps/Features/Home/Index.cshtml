@@ -1,0 +1,23 @@
+﻿@using TCOMSapps.Data
+@inject RoleManager<ApplicationRole> RoleManager
+@inject UserManager<ApplicationUser> UserManager
+@{ ViewData["Title"] = "Home Page"; }
+@if (await UserManager.GetUserAsync(User) != null)
+{
+  <div class="row tcoms">
+    @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "OOSTitles User"))
+    {
+      <div class="card col-sm-12 col-md-5">
+        <h3>OOS Titles</h3>
+        <br />
+        <ul>
+          <li style="display: inline;"><a asp-controller="OosTitlesDashboard" asp-action="Index" class="btn btn-sm btn-outline-info">Dashboard</a></li>
+          <li style="display: inline;"><a asp-controller="Titles" asp-action="Create" class="btn btn-sm btn-outline-info">Add Title</a></li>
+          <li style="display: inline;"><a asp-controller="SearchTitle" asp-action="Search" class="btn btn-sm btn-outline-info">Search</a></li>
+        </ul>
+      </div>
+    }
+
+
+  </div>
+}

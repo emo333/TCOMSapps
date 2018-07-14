@@ -1,0 +1,309 @@
+﻿@using TCOMSapps.Features.OOSTitles.entities
+@model TCOMSapps.Features.OOSTitles.Titles.TitleWithTransfersAndInteractionsViewModel
+@{ ViewBag.Title = "Details"; }
+<br />
+<div>
+	<h2 style="display: inline;vertical-align: middle;">TITLE DETAILS&nbsp;</h2>
+	@if (Model.Title.SentToDmvDt != null)
+	{
+		<div style="display: none;" class="oos-hidden"><label asp-for="Title.SentToDmvDt"></label> on<span class="tcoms-data-color">&nbsp;@Model.Title.SentToDmvDt</span> by <span class="tcoms-data-color">@Model.UserManager.FindByIdAsync(Model.Title.SentUserId).Result.FirstName @Model.UserManager.FindByIdAsync(Model.Title.SentUserId).Result.LastName</span></div>
+	}
+	else
+	{
+		<div style="display: none;" class="oos-hidden"><label asp-for="Title.SentBackToLhDlrDt"></label><span class="tcoms-data-color">&nbsp;@Model.Title.SentBackToLhDlrDt</span></div>
+	}
+	<a asp-controller="Titles" asp-action="Edit" asp-route-id="@Model.Title.Id" class="btn btn-outline-info oos-lockable-controls">EDIT</a>
+	<h3 style="display: inline;vertical-align: middle; font-weight: 100;">
+		<span class="tcoms-data-color">&nbsp;@Model.Title.CustFName</span>
+		<span class="tcoms-data-color">@Model.Title.CustLName</span>
+	</h3>
+</div>
+
+@if (Model.Title.FollowUp)
+{
+	<p class="alert alert-info" style="margin-bottom: 0; margin-top: 10px;">
+		<span style="font-size: 0.7rem; color: black;">Follow-Up: <br /></span>
+		@Model.Title.TitleNotes
+	</p>
+}
+
+<!-- Modal Send To DMV Confirm-->
+<div class="modal fade" id="confirmDmvModal" tabindex="-1" role="dialog" aria-labelledby="dmVconfirmModalTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<br />
+			<h4 class="modal-title" id="dmVconfirmModalLongTitle">&nbsp;&nbsp;&nbsp;SEND TITLE TO FLHSMV</h4>
+			<div class="modal-body tcoms-data-color">
+				Are you sure you want to send this Title to FLHSMV?
+			</div>
+			<div>
+				<span>
+					&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-light" data-dismiss="modal">CANCEL</button>
+					<button type="button" id="dmv" class="dropdown-item-oos btn btn-warning">SEND to FLHSMV</button>
+				</span>
+			</div>
+			<br />
+		</div>
+	</div>
+</div>
+
+<!-- Modal Send Letter Confirm-->
+<div class="modal fade" id="confirmLetterModal" tabindex="-1" role="dialog" aria-labelledby="sendLetterModalTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<br />
+			<h4 class="modal-title" id="sendLetterModalLongTitle">&nbsp;&nbsp;&nbsp;SEND LETTER TO CUSTOMER</h4>
+			<div class="modal-body tcoms-data-color">
+				Are you sure you want to send a letter to Customer?
+			</div>
+			<div>
+				<span>
+					&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-light" data-dismiss="modal">CANCEL</button>
+					<a asp-controller="Interactions" asp-action="SendCustomerLetterAsPdf" asp-route-id="@Model.Title.Id" id="sendcustltr" class="btn btn-outline-warning btn-sm" target="_new">SEND CUSTOMER LETTER</a>
+				</span>
+			</div>
+			<br />
+		</div>
+	</div>
+</div>
+
+<!-- Modal Send Email Confirm-->
+<div class="modal fade" id="confirmEmailModal" tabindex="-1" role="dialog" aria-labelledby="sendEmailModalTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<br />
+			<h4 class="modal-title" id="sendEmailModalLongTitle">&nbsp;&nbsp;&nbsp;SEND EMAIL TO CUSTOMER</h4>
+			<div class="modal-body tcoms-data-color">
+				Are you sure you want to send a Notification Email to @Model.Title.CustEmail?
+			</div>
+			<div>
+				<span>
+					&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-light" data-dismiss="modal">CANCEL</button>
+					<a asp-controller="Interactions" asp-action="SendEmailToCustomer" asp-route-id="@Model.Title.Id" class="btn btn-outline-warning btn-sm">SEND CUSTOMER EMAIL</a>
+				</span>
+			</div>
+			<br />
+		</div>
+	</div>
+</div>
+
+
+<div class="row tcoms">
+	<div class="card col-12">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-5 col-md-5 col-lg-5">
+					<div>
+						Year&nbsp;<span class="tcoms-data-color">@Model.Title.VehYr</span>
+					</div>
+					<div>
+						Make-Model&nbsp;
+						<span class="tcoms-data-color">@Model.Title.VehMake</span>
+						<span class="tcoms-data-color">@Model.Title.VehModel</span>
+					</div>
+					<div>VIN <span class="tcoms-data-color">@Model.Title.Vin</span></div>
+				</div>
+				<div class="col-sm-3 col-md-3 col-lg-3">
+					<div>Received <span class="tcoms-data-color">&nbsp;@Model.Title.RecDt.ToShortDateString()</span></div>
+					<div>New Vehicle&nbsp;<input disabled asp-for="Title.NewVeh" type="checkbox" /></div>
+					<div>From<span class="tcoms-data-color">&nbsp;@Model.Title.TitleRecievedFromType</span></div>
+				</div>
+				<div class="col-sm-4 col-md-4 col-lg-4">
+					<div>By<span class="tcoms-data-color">&nbsp;@Model.Title.RecMethod</span></div>
+					<div>Received at<span class="tcoms-data-color">&nbsp;@Model.LocationName</span></div>
+					<div>Input by<span class="tcoms-data-color">&nbsp;@Model.UserManager.FindByIdAsync(Model.Title.UserId).Result.FirstName @Model.UserManager.FindByIdAsync(Model.Title.UserId).Result.LastName</span></div>
+				</div>
+			</div>
+		</div>
+		<br />
+		<div class="panel panel-primary">
+			<div class="panel-heading" style="display: inline;vertical-align: middle;">TRANSFERS&nbsp;&nbsp;</div>
+			<div id="sendtitlediv" style="margin-bottom: 4px;display: inline;vertical-align: middle;" class="btn-group oos-lockable-controls">
+				<button style="margin-bottom: 4px;" type="button" class="btn btn-outline-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SEND TITLE</button>
+				<div style="background-color: #ffc107;" class="dropdown-menu btn-outline-warning">
+					<a class="dropdown-item btn btn-warning" data-toggle="modal" data-target="#confirmDmvModal">FLHSMV</a>
+					<a id="dealerlien" class="dropdown-item dropdown-item-oos" asp-controller="Interactions" asp-action="DealerLeinholderReturn" asp-route-id="@Model.Title.Id">Dealer/Lienholder</a>
+					<div class="dropdown-divider"></div>
+					@foreach (var item in Model.Locations)
+					{<a id="@item.Id" class="dropdown-item dropdown-item-oos" href="#">@item.Name</a>}
+				</div>
+			</div>
+			<div>
+				<table id="locationtable" class="table table-dark table-dark-firstrow">
+					<tr>
+						<td></td>
+						<td>Location</td>
+						<td>Routed</td>
+						<td>Received</td>
+					</tr>
+					@foreach (var item in Model.Transfers)
+					{
+						<tr>
+							<td hidden>@item.Id</td>
+							<td>
+								<div class="oos-tiny-text">
+									@if (item.LocationId != Model.Title.InitialLocation)
+									{
+										<div class="oos-tiny-text-sub">Requested by</div>
+										<div class="oos-tiny-text-sub">
+											@Model.UserManager.FindByIdAsync(item.TransferRequestUserId).Result.FirstName
+											@Model.UserManager.FindByIdAsync(item.TransferRequestUserId).Result.LastName
+										</div>
+									}
+									else
+									{ <div>Initial Location</div>}
+								</div>
+							</td>
+							<td class="tcoms-data-color">@item.LocationName</td>
+							@if (item.InRouteDt == null)
+							{
+								<td><button id="@item.Id" class="btn btn-sm btn-outline-danger oos-rou-item">ROUTE</button></td> }
+							else
+							{
+								<td class="tcoms-data-color">
+									<span>
+										@item.InRouteDt.GetValueOrDefault().ToShortDateString()
+										@Model.UserManager.FindByIdAsync(item.InRouteByUserId).Result.FirstName
+										@Model.UserManager.FindByIdAsync(item.InRouteByUserId).Result.LastName
+									</span>
+								</td>
+							}
+							@if (item.ReceivedDt == null)
+							{
+								if (item.InRouteDt != null)
+								{
+									<td><button id="@item.Id" class="btn btn-sm btn-outline-warning oos-rec-item">RECEIVE</button></td> }
+								else
+								{
+									<td><button disabled class="btn btn-sm btn-outline-warning">RECEIVE</button></td> }
+							}
+							else
+							{
+								<td class="tcoms-data-color">
+									<span>
+										@item.ReceivedDt.GetValueOrDefault().ToShortDateString()
+										@Model.UserManager.FindByIdAsync(item.ReceivedByUserId).Result.FirstName
+										@Model.UserManager.FindByIdAsync(item.ReceivedByUserId).Result.LastName
+									</span>
+								</td>
+							}
+						</tr>
+					}
+				</table>
+			</div>
+		</div>
+		<br />
+		<div class="panel panel-primary">
+			<div style="padding-bottom: 4px;">
+				<div class="panel-heading" style="display: inline;vertical-align: middle;">INTERACTIONS&nbsp;&nbsp;</div>
+				<div style="padding-bottom: 4px; display: inline; vertical-align: middle;" class="oos-lockable-controls">
+					<button class="btn btn-outline-warning btn-sm" data-toggle="modal" data-target="#confirmLetterModal">LETTER</button>
+					<a asp-controller="Interactions" asp-action="PhoneCall" asp-route-id="@Model.Title.Id" class="btn btn-outline-warning btn-sm">PHONE CALL</a>
+					@if (Model.Title.CustEmail != null)
+					{
+						<button class="btn btn-outline-warning btn-sm" data-toggle="modal" data-target="#confirmEmailModal">EMAIL</button>
+					}
+					else
+					{
+						<a class="btn btn-outline-warning btn-sm disabled" style="color: #ffc107;">EMAIL <span class="oos-tiny-text">no email address</span></a>
+					}
+				</div>
+			</div>
+			<div>
+				<table class="table table-dark table-dark-firstrow">
+					<tr>
+						<td>Date</td>
+						<td>By</td>
+						<td>Type</td>
+					</tr>
+					@foreach (var item in Model.Interactions)
+					{
+						<tr>
+							<td hidden>@item.Id</td>
+							<td class="tcoms-data-color">@item.InteractionDt.ToShortDateString()</td>
+							<td class="tcoms-data-color">
+								@Model.UserManager.FindByIdAsync(item.InteractionUserId).Result.FirstName
+								@Model.UserManager.FindByIdAsync(item.InteractionUserId).Result.LastName
+							</td>
+							<td class="tcoms-data-color">@item.InteractionType</td>
+							<td>
+								@if (item.InteractionType == "Phone Call")
+								{<a asp-controller="Interactions" asp-action="Notes" asp-route-id="@item.Id" class="btn btn-sm btn-outline-light">Phone Call Notes</a>}
+							</td>
+							<td>
+								@if (item.InteractionType != "Phone Call")
+								{
+									if (item.InteractionType == "Title Return Letter")
+									{
+										<a asp-controller="Interactions" asp-action="ViewTitleReturnLetterAsPdf" asp-route-id="@item.Id" class="btn btn-sm btn-outline-light" target="_new">View/Print Letter</a>
+									}
+									else if (item.InteractionType == "Email")
+									{
+									}
+									else
+									{
+										<a asp-controller="Interactions" asp-action="ViewCustomerLetterAsPdf" asp-route-id="@item.Id" class="btn btn-sm btn-outline-light" target="_new">View/Print Letter</a>
+									}
+
+								}
+							</td>
+						</tr>
+					}
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<p>&nbsp;</p>
+@section MyScripts {
+	<script type="text/javascript">
+        $('.dropdown-item-oos').click(function() {
+            if (this.id !== 'dealerlien') {
+                $.post('/OOSTitles/Titles/SendToLocationApi',
+                    {
+                        TitleId: @Model.Title.Id,
+                        Id: this.id,
+                        UserId: '@Model.UserManager.GetUserId(User)'
+                    },
+                    function(data) { location.reload(); }
+                );
+            }
+        });
+        $('.oos-rou-item').click(function() {
+            $.post('/OOSTitles/Transfers/RouteTitle',
+                {
+                    Id: this.id,
+                    UserId: '@Model.UserManager.GetUserId(User)'
+                },
+                function(data) { location.reload(); }
+            );
+        });
+        $('.oos-rec-item').click(function() {
+            $.post('/OOSTitles/Transfers/ReceiveTitle',
+                {
+                    Id: this.id,
+                    UserId: '@Model.UserManager.GetUserId(User)'
+                },
+                function(data) { location.reload(); }
+            );
+        });
+        $('#sendcustltr').click(function() { location.reload().delay(1500); });
+
+        $(document).ready(function() {
+            if ("@Model.Title.SentBackToLhDlrDt" !== "@Model.Title.SentToDmvDt") {
+                $('.oos-lockable-controls').hide();
+                $('.oos-hidden').show();
+            };
+
+            $('#locationtable').find('tr').each(function(rowIndex, r) {
+                $(this).find('td').each(function(colIndex, c) {
+                    if (c.textContent === 'ROUTE' || c.textContent === 'RECEIVE') {
+                        $('#sendtitlediv').hide();
+                    }
+                });
+            });
+        });
+	</script>
+}

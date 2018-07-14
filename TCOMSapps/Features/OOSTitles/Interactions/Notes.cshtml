@@ -1,0 +1,56 @@
+﻿@model TCOMSapps.Features.OOSTitles.Interactions.NotesViewModel
+@{ ViewBag.Title = "Notes";}
+<br />
+<h2>INTERACTION NOTES<span>@Model.Interaction.CustFName @Model.Interaction.CustLName</span></h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <input asp-for="Interaction.Id" type="hidden" />
+    <input asp-for="Interaction.TitleId" type="hidden" />
+    <input asp-for="Interaction.InteractionUserId" type="hidden" />
+    <input asp-for="Interaction.InteractionDt" type="hidden" />
+    <input asp-for="Interaction.InteractionType" type="hidden" />
+    <input asp-for="Interaction.CustPhone" type="hidden" />
+    <input asp-for="Interaction.CustPhone2" type="hidden" />
+    <div class="container">
+        <div class="row">
+            <div class="form-group col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                Date
+                <span class="tcoms-data-color">@Model.Interaction.InteractionDt.ToShortDateString()</span>
+            </div>
+            <div class="form-group col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <label asp-for="Interaction.InteractionUserId"></label>
+                <span class="tcoms-data-color">
+                    &nbsp;
+                    @((await Model.UserManager.GetUserAsync(User)).FirstName)
+                    @((await Model.UserManager.GetUserAsync(User)).LastName)
+                </span>
+            </div>
+            <div class="form-group col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <label asp-for="Interaction.InteractionType"></label>
+                <span class="tcoms-data-color">
+                    &nbsp;
+                    <span>@Model.Interaction.InteractionType</span>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-12">
+
+                <div>
+
+                    <textarea asp-for="Interaction.Notes" class="col-11 order-2 form-control"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div>
+            <input type="submit" value="Save" class="btn btn-success" />
+            <a asp-controller="Titles" asp-action="Details" asp-route-id="@Model.Interaction.TitleId" class="btn btn-outline-light">CANCEL</a>
+        </div>
+    </div>
+}
+@section Scripts {
+}

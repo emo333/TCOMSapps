@@ -1,0 +1,43 @@
+﻿@model TCOMSapps.Features.OOSTitles.entities.County
+@{ ViewBag.Title = "Edit County";}
+<br />
+<h3>EDIT COUNTY</h3>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <input hidden asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="Name" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PocUserId" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PocUserId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PocUserId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="DefaultLocation" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DefaultLocation, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DefaultLocation, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="SharedData" class="control-label col-md-2"></label>
+            <div class="col-md-10"><div class="checkbox"><input asp-for="SharedData" type="checkbox" /></div></div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Active" class="control-label col-md-2"></label>
+            <div class="col-md-10"><div class="checkbox"><input asp-for="Active" type="checkbox" /></div></div>
+        </div>
+        <div class="form-group"><div class="col-md-10"><input type="submit" value="Save" class="btn btn-success" /></div></div>
+    </div>
+}
+@section Scripts {}
