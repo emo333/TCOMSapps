@@ -27,6 +27,3 @@
 * Change SuperAdmin password
 * Change County settings
 * Change/Add Locations settings	
-
-### Disclaimers
-*	GNU GPL License (Free and Open Source)
