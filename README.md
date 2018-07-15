@@ -1,12 +1,19 @@
 # TCOMSapps - Out Of State Title Tracking
 
-### Server Requirements
+### Requirements
 
- * Windows Server 2012+ (can be run on Windows7+)
-
- * IIS 7+ (can run without IIS)
-  
- * SQL Server Express (can use SQL Server Standard and can be different server)
+ #### Recommended:
+ * Windows Server 2012+ 
+   * IIS 7+ 
+   * SQL Server Express
+ 
+ #### Optional:
+ * Windows 7+
+   * IIS 7+
+   * SQL Server Express
+   * SQL Server Standard on separate server
+ * Linux
+   * SQL Server Standard on separate server
   
 ### Install Steps
 
