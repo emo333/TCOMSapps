@@ -27,9 +27,9 @@
   * Configure SQLServer Login for TCOMSapps Database
   * Get Connection String
 * Configure WebSite Files
-  * Change Connection String setting in appsettings.json to match your SQLServer Connection string
+  * Change Connection String setting in [appsettings.json](TCOMSapps/TCOMSapps/appsettings.json) to match your SQLServer Connection string
   * Add County Icon image file by replacing logo.jpg with your county logo file
-  ** OPTIONAL{requires recompiling your own release}: The first run of the application will seed the database with demo data.  You can change this demo data by changing AppInitializer.cs
+  ** OPTIONAL{requires recompiling your own release}: The first run of the application will seed the database with demo data.  You can change this demo data by changing [AppInitializer.cs](TCOMSapps/TCOMSapps/Data/AppInitializer.cs)
   
 ### Initial TCOMSapps Configuration
 
