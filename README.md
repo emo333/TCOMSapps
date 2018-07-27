@@ -17,9 +17,9 @@
   
 ### Install Steps
 
-* Configure IIS  
+* Configure IIS (note: you can run without IIS but not recommended for security concerns and complexitiy)
   * Create Virtual Directory  
-  * Add Website Files
+  * Add Website Files - ALL folders and files in [Release](https://github.com/emo333/TCOMSapps/tree/master/Release) to virtual directory folder
   * Configure App Pool
   * Bind ports
 * Configure SQL Server
