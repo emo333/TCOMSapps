@@ -17,7 +17,7 @@
   
 ### Install Steps
 
-* Configure IIS (note: you can run without IIS but not recommended for security concerns and complexitiy)
+* Configure IIS (note: you can run without IIS but not recommended for security concerns and complexity)
   * Create Virtual Directory  
   * Add Website Files - ALL folders and files in [Release](https://github.com/emo333/TCOMSapps/tree/master/Release) to virtual directory folder
   * Configure App Pool
@@ -28,8 +28,8 @@
   * Get Connection String
 * Configure WebSite Files
   * Change Connection String setting in [appsettings.json](TCOMSapps/TCOMSapps/appsettings.json) to match your SQLServer Connection string
-  * Add County Icon image file by replacing logo.jpg with your county logo file
-  ** OPTIONAL{requires recompiling your own release}: The first run of the application will seed the database with demo data.  You can change this demo data by changing [AppInitializer.cs](TCOMSapps/TCOMSapps/Data/AppInitializer.cs)
+  * Add County Icon image file by replacing nctcseal.jpg with your county logo file (the file in your IIS virtual directory) Use same file name {this is the image used for letters}
+  * OPTIONAL{requires recompiling your own release}: The first run of the application will seed the database with demo data.  You can change this demo data by changing [AppInitializer.cs](TCOMSapps/TCOMSapps/Data/AppInitializer.cs)
   
 ### Initial TCOMSapps Configuration
 
