@@ -1,135 +1,121 @@
-﻿@using TCOMSapps.Features.OOSTitles.entities
-@model Interaction
+﻿@model TCOMSapps.Features.OOSTitles.Interactions.InteractionViewModel
 @{
-    Layout = null;
+  Layout = null;
 }
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-    <title>Warning Letter</title>
-    <link href="~/css/pdf.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+  <title>Warning Letter</title>
+  <link href="~/css/pdf.css" rel="stylesheet" />
 </head>
 <body lang="EN-US">
-    <header>
-        <div class="pdf-topleft">
-            <img src="~/images/nctcseal.jpg" />
-        </div>
-        <div class="pdf-topright">
-            <div class="pdf-official-name">
-                <div>
-                    John M. Drew
-                </div>
-                <div>
-                    Tax Collector
-                </div>
-            </div>
-            <address>
-                <br />
-                86130 License Road<br />
-                Fernandina Beach, FL 32034<br />
-                www.nassautaxes.com
-            </address>
-        </div>
-        <hr />
-    </header>
-
-    <section>
+  <header>
+    <div class="pdf-topleft">
+      <img src="~/images/nctcseal.jpg" />
+    </div>
+    <div class="pdf-topright">
+      <div class="pdf-official-name">
         <div>
-            @Model.InteractionDt.ToLongDateString()
+          @Model.County.OosTitleLetterTaxCollectorName
         </div>
+        <div>
+          Tax Collector
+        </div>
+      </div>
+      <address>
         <br />
-        <div>
-            <b>
-                @Model.CustFName @Model.CustLName
-                @if (@Model.CustFName2 != null)
-    {
-            <span>, @Model.CustFName2 @Model.CustLName2</span>
-}
-                @if (@Model.CustFName3 != null)
-    {
-            <span>, @Model.CustFName3 @Model.CustLName3</span>
-}
-            </b>
-            <address>
-                @Model.CustAddr1 <br />
-                @if (Model.CustAddr2 != null)
-                {@Model.CustAddr1 <br />}
-                @Model.CustCity , @Model.CustState @Model.CustZip
-            </address>
-        </div>
-        <br /><br />
-        <div class="pdf-letter-subject">
-            Re: Title for @Model.VehYr @Model.VehMake @Model.VehModel VIN# @Model.Vin
-        </div>
+        86130 License Road<br />
+        Fernandina Beach, FL 32034<br />
+        www.nassautaxes.com
+      </address>
+    </div>
+    <hr />
+  </header>
 
-        <h2 style="width: 100%; text-align: center;">
-            WARNING OF TITLE WORK TO BE RETURNED TO
-            @{
-                var to = Model.TitleRecievedFromType == Interaction.TitleReceivedFromTypes.Dealer ? "DEALER" : "LIEN HOLDER";
-            }
-            @to
-        </h2>
+  <section>
+    <div>
+      @Model.Interaction.InteractionDt.ToLongDateString()
+    </div>
+    <br />
+    <div>
+      <b>
+        @Model.Interaction.CustFName @Model.Interaction.CustLName
+        @if (Model.Interaction.CustFName2 != null)
+        {
+          <span>, @Model.Interaction.CustFName2 @Model.Interaction.CustLName2</span>
+        }
+        @if (Model.Interaction.CustFName3 != null)
+        {
+          <span>, @Model.Interaction.CustFName3 @Model.Interaction.CustLName3</span>
+        }
+      </b>
+      <address>
+        @Model.Interaction.CustAddr1 <br />
+        @if (Model.Interaction.CustAddr2 != null)
+        {@Model.Interaction.CustAddr1 <br />}
+        @Model.Interaction.CustCity , @Model.Interaction.CustState @Model.Interaction.CustZip
+      </address>
+    </div>
+    <br /><br />
+    <div class="pdf-letter-subject">
+      Re: Title for @Model.Interaction.VehYr @Model.Interaction.VehMake @Model.Interaction.VehModel VIN# @Model.Interaction.Vin
+    </div>
 
-        <p>
-            The title work for the above referenced vehicle was received by our office more than 30 days ago. If we have
-            not been contacted regarding this title work within 10 business days from the date of this letter, we will
-            return the title to the @to.
-        </p>
+    <h2 style="width: 100%; text-align: center;">
+      WARNING OF TITLE WORK TO BE RETURNED TO
+      @{
+        var to = Model.Interaction.TitleRecievedFromType == TCOMSapps.Features.OOSTitles.entities.Interaction.TitleReceivedFromTypes.Dealer ? "DEALER" : "LIEN HOLDER";
+      }
+      @to
+    </h2>
 
-        <p>
-            Please call (904) 491‐7400 and choose option 4, between 8:00 am ‐ 5:00 pm Monday ‐ Friday.
-        </p>
+    <p>
+      The title work for the above referenced vehicle was received by our office more than 30 days ago. If we have
+      not been contacted regarding this title work within 10 business days from the date of this letter, we will
+      return the title to the @to.
+    </p>
 
-        <br /><br /><br />
+    <p>
+      Please call @Model.County.OosTitleLetterMsPhoneNumber, between 8:00 am ‐ 5:00 pm Monday ‐ Friday.
+    </p>
 
-        <p>
-            Thank you for the opportunity to serve you!
-        </p>
-        Motor Services Department
-        <br />
-        <i><small>Representing John M. Drew, Tax Collector ‐ Nassau County</small></i>
-        <p>
+    <br /><br /><br />
 
-        </p>
+    <p>
+      Thank you for the opportunity to serve you!
+    </p>
+    Motor Services Department
+    <br />
+    <i><small>Representing @Model.County.OosTitleLetterTaxCollectorName, Tax Collector ‐ @Model.County.Name County</small></i>
+    <p>
 
-    </section>
+    </p>
 
-    <footer>
-        <hr />
-        <div>
-            <address>
-                <span class="pdf-address-name">Tax Collector's Office</span><br />
-                86130 License Raod<br />
-                Fernandina Beach, FL 32034
-            </address>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <address>
-                <span class="pdf-address-name">Historic Courthouse</span><br />
-                416 Centre Street<br />
-                Fernandina Beach, FL 32034
-            </address>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <address>
-                <span class="pdf-address-name">Callahan Office</span><br />
-                450077 SR 200, Suite 13<br />
-                Callahan FL, 32011
-            </address>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <address>
-                <span class="pdf-address-name">Hilliard Office</span><br />
-                15885 CR 108<br />
-                Hilliard, FL 32046
-            </address>
-        </div>
-        <div>&nbsp;</div>
-        <div>
-            <address>
-                (904) 491-7400 / (866) 815-4690    Fax (904) 432-0220<br />
-                www.nassautaxes.com
-            </address>
-        </div>
-    </footer>
+  </section>
+
+  <footer>
+    <hr />
+    <div>
+      <address>
+        <span class="pdf-address-name">Tax Collector's Office</span><br />
+        @Model.County.OosTitleLetterAddressLine1<br />
+        @if (Model.County.OosTitleLetterAddressLine1 == null)
+        {
+          @Model.County.OosTitleLetterAddressLine2<br />
+        }
+        @Model.County.OosTitleLetterCity, @Model.County.OosTitleLetterState @Model.County.OosTitleLetterZip<br />
+      </address>
+    </div>
+    <div>
+      <address>
+        @Model.County.OosTitleLetterPhoneNumbers<br />
+        @Model.County.OosTitleLetterWebsite<br />
+        @Model.County.OosTitleEmailAddress
+      </address>
+    </div>
+  </footer>
+
 </body>
 
 </html>

@@ -3,31 +3,32 @@
 <br />
 <h2>ADMIN DASHBOARD</h2>
 <br />
-<a asp-controller="Admin" asp-action="RegisterRole" class="btn btn-warning btn-sm">Add Role</a>
+<a asp-controller="Admin" asp-action="EditAppSettings" class="btn btn-warning btn-sm">Application Settings</a>
+<a hidden asp-controller="Admin" asp-action="RegisterRole" class="btn btn-warning btn-sm">Add Role</a>
 <a class="btn btn-warning btn-sm" href="@Url.Action("AddUserToRole", "Admin")">Add User To Role</a>
 <br />
 <div class="row">
-	<div class="col-md-3">
-		<div class="form-group">
-			<br />
-			<label class="control-label">EDIT USER PROFILE:</label>
-		  <select asp-for="ApplicationUser.Id" class="form-control" id="select">
-		    <option>SELECT USER</option>
-		    @foreach (var user in Model.ApplicationUsers.OrderBy(t => t.FirstName).ThenBy(t => t.LastName))
-		    {
-		      <option id='@user.Id.ToString()' value="@user.Id.ToString()">@user.FirstName @user.LastName</option>
-		    }
-		  </select>
-		</div>
-	</div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <br />
+      <label class="control-label">EDIT USER PROFILE:</label>
+      <select asp-for="ApplicationUser.Id" class="form-control" id="select">
+        <option>SELECT USER</option>
+        @foreach (var user in Model.ApplicationUsers.OrderBy(t => t.FirstName).ThenBy(t => t.LastName))
+        {
+          <option id='@user.Id.ToString()' value="@user.Id.ToString()">@user.FirstName @user.LastName</option>
+        }
+      </select>
+    </div>
+  </div>
 </div>
 <br />
 @section Scripts {
-	<script type="text/javascript">
-		$(document).ready(function () {
-			$('#select').change(function () {
-				location.href = '/Admin/Admin/EditUserProfile?appUserId=' + $(this).val();
-			});
-		});
-	</script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#select').change(function () {
+        location.href = '/Admin/Admin/EditUserProfile?appUserId=' + $(this).val();
+      });
+    });
+  </script>
 }

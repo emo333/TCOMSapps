@@ -7,11 +7,9 @@
     <tr class="oos-row-short">
       <td class="oos-row-short"></td>
       <td><a class="btn btn-warning btn-sm" href="@Url.Action("Index", "Locations")">OFFICES</a></td>
-      <td><a class="btn btn-warning btn-sm" href="@Url.Action("Index", "Counties")">COUNTIES</a></td>
+      <td><a class="btn btn-warning btn-sm" asp-controller="Counties" asp-action="Edit" asp-route-id="1">COUNTY SETTINGS</a></td>
       <td><a class="btn btn-warning btn-sm" href="@Url.Action("AddoosTitleUserToRole", "Admin")">Add User to Role</a></td>
     </tr>
   </table>
 }
-<br />
-<br />
-<p>Import/Export Data.</p>
+

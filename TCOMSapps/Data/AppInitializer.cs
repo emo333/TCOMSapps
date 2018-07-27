@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using TCOMSapps.Features.OOSTitles.entities;
+using TCOMSapps.Services.AppSettings;
 
 namespace TCOMSapps.Data
 {
@@ -60,6 +61,7 @@ namespace TCOMSapps.Data
           await rolemanager.CreateAsync(new ApplicationRole("OOSTitles User"));
           (await rolemanager.FindByNameAsync("OOSTitles User")).CountyId = 1;
           await usermanager.AddToRoleAsync(await usermanager.FindByNameAsync(UserName), "OOSTitles Admin");
+          await usermanager.AddToRoleAsync(await usermanager.FindByNameAsync(UserName), "OOSTitles User");
         }
 
         // TODO: if no county exist, create Default county
@@ -68,7 +70,38 @@ namespace TCOMSapps.Data
         if (await context.Counties.CountAsync() == 0)
         {
           await context.Counties.AddRangeAsync(
-              new County { Name = "NASSAU COUNTY", Active = true, Theme = 1, DefaultLocation = 1, SharedData = false }
+              new County
+              {
+                Name = "NASSAU",
+                Active = true,
+                Theme = 1,
+                DefaultLocation = 1,
+                SharedData = false,
+                OosTitleLetterTaxCollectorName = "Don Knotts",
+                OosTitleLetterAddressLine1 = "1234 Some Road",
+                OosTitleLetterAddressLine2 = "Suite 99",
+                OosTitleLetterCity = "Greenbow",
+                OosTitleLetterState = "AL",
+                OosTitleLetterZip = "99999-9999",
+                OosTitleEmailAddress = "ms@tc.com",
+                OosTitleLetterWebsite = "www.tc.com",
+                OosTitleLetterPhoneNumbers = "(999) 555-1212 - (800) 555-1234",
+                OosTitleLetterMsPhoneNumber = "(555) 555-1213",
+                OosTitlesCopyEmailAddress = "records@tc.com"
+              }
+          );
+          context.SaveChanges();
+        }
+
+        //create default app settings
+        if (await context.AppSettings.CountAsync() == 0)
+        {
+          await context.AppSettings.AddRangeAsync(
+            new AppSettings
+            {
+              SmtpHost = "172.0.0.1",
+              SmtpPort = 25
+            }
           );
           context.SaveChanges();
         }
@@ -106,28 +139,7 @@ namespace TCOMSapps.Data
                         {
                             new Tuple<string, int, int>("Mandy", 1, 3),
                             new Tuple<string, int, int>("Carey", 2, 1),
-                            new Tuple<string, int, int>("Suzy", 3, 1),
-                            new Tuple<string, int, int>("Felicia", 4, 2),
-                            new Tuple<string, int, int>("Kelly", 5, 1),
-                            new Tuple<string, int, int>("Denora", 6, 1),
-                            new Tuple<string, int, int>("Julie", 7, 2),
-                            new Tuple<string, int, int>("Valerie", 8, 1),
-                            new Tuple<string, int, int>("Bill", 9, 1),
-                            new Tuple<string, int, int>("Kim", 10, 1),
-                            new Tuple<string, int, int>("Donna", 11, 3),
-                            new Tuple<string, int, int>("Janet", 12, 1),
-                            new Tuple<string, int, int>("Cecilia", 12, 1),
-                            new Tuple<string, int, int>("Sherry", 22, 1),
-                            new Tuple<string, int, int>("Serena", 23, 1),
-                            new Tuple<string, int, int>("Tina", 25, 1),
-                            new Tuple<string, int, int>("John", 16, 3),
-                            new Tuple<string, int, int>("Dot", 17, 2),
-                            new Tuple<string, int, int>("Lisa", 18, 1),
-                            new Tuple<string, int, int>("Venus", 19, 1),
-                            new Tuple<string, int, int>("Christine", 26, 4),
-                            new Tuple<string, int, int>("Bonnie", 21, 1),
-                            new Tuple<string, int, int>("Jackie", 15, 1),
-                            new Tuple<string, int, int>("Jennifer", 14, 1)
+                            new Tuple<string, int, int>("Suzy", 3, 1)
                         };
           foreach (var employeeItem in employeeItems)
           {
@@ -148,7 +160,7 @@ namespace TCOMSapps.Data
                 "OOSTitles User");
           }
 
-          // ## Add demo titles
+          // ## Add demo titles ########################################
 
           // get user to use for titles
           var employee = await usermanager.Users.FirstOrDefaultAsync(u => u.UserName == "mandy@nassautaxes.com");
@@ -334,12 +346,8 @@ namespace TCOMSapps.Data
               ReceivedDt = title.RecDt,
               Notes = "Left Voicemail asking Customer to call office."
             };
-
             context.Interactions.Add(interaction);
-
-
           }
-
           await context.SaveChangesAsync();
 
           var titwithwarning = new Title()
@@ -363,7 +371,6 @@ namespace TCOMSapps.Data
             VehYr = rnd.Next(1980, 2018),
             Vin = rnd.Next(10000000, 999999999).ToString()
           };
-
 
           var title3 = (await context.Titles.AddAsync(titwithwarning));
 
@@ -412,7 +419,6 @@ namespace TCOMSapps.Data
             TitleRecievedFromType = Interaction.TitleReceivedFromTypes.Lienholder,
             ReceivedDt = titwithwarning.RecDt,
           };
-
           context.Interactions.Add(interactionwarning);
 
           // add warning interaction for title
@@ -444,20 +450,8 @@ namespace TCOMSapps.Data
             TitleRecievedFromType = Interaction.TitleReceivedFromTypes.Lienholder,
             ReceivedDt = titwithwarning.RecDt,
           };
-
           context.Interactions.Add(interactionwarning2);
-
           await context.SaveChangesAsync();
-
-          // add notification letters
-
-
-
-          // add warning letters
-
-
-
-
         }
       }
     }

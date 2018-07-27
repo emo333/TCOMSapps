@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TCOMSapps.Data;
+using TCOMSapps.Services.AppSettings;
 
 namespace TCOMSapps.Features.Admin
 {
@@ -98,10 +99,35 @@ namespace TCOMSapps.Features.Admin
                                       _userManager.FindByIdAsync(vm.AppUser.Id.ToString()).Result,
                                       _roleManager.FindByIdAsync(vm.AppRole.Id.ToString()).Result.Name
                                       );
-      return RedirectToAction("RegisterRole", "Admin");
+      return RedirectToAction("AdminDashboard", "Admin");
     }
 
 
+    [Route("EditAppSettings")]
+    public ActionResult EditAppSettings()
+    {
+      var vm = _ctx.AppSettings.FirstOrDefault();
+      return View(model: vm);
+    }
+    [Route("EditAppSettings")]
+    [HttpPost]
+    public async Task<ActionResult> EditAppSettings(AppSettings vm)
+    {
+      if (!ModelState.IsValid) return View(vm);
+      try
+      {
+        var appSettings = await _ctx.AppSettings.FirstOrDefaultAsync();
+        appSettings.SmtpHost = vm.SmtpHost;
+        appSettings.SmtpPort = vm.SmtpPort;
+        _ctx.Update(appSettings);
+        await _ctx.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        throw;
+      }
+      return RedirectToAction("RegisterRole", "Admin");
+    }
 
 
     [Route("EditUserProfile")]

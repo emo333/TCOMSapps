@@ -27,6 +27,7 @@ using TCOMSapps.Services;
 
 [assembly: AspMvcViewLocationFormat(@"~\Features\Admin\{1}\{0}.cshtml")]
 [assembly: AspMvcViewLocationFormat(@"~\Features\Admin\{0}.cshtml")]
+[assembly: AspMvcViewLocationFormat(@"~\Features\Admin\EditAppSettings\{0}.cshtml")]
 [assembly: AspMvcViewLocationFormat(@"~\Features\Admin\Dashboard\{0}.cshtml")]
 [assembly: AspMvcViewLocationFormat(@"~\Features\Admin\Shared\{0}.cshtml")]
 

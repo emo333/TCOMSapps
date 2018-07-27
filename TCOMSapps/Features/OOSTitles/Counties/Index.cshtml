@@ -2,23 +2,19 @@
 @{ ViewBag.Title = "Counties";}
 <br />
 <h3>COUNTIES</h3>
-<p>@Html.ActionLink("Create New", "Create")</p>
+
 <table class="table">
+  <tr>
+    <th>@Html.DisplayNameFor(model => model.Name)</th>
+
+    <th></th>
+  </tr>
+  @foreach (var item in Model)
+  {
     <tr>
-        <th>@Html.DisplayNameFor(model => model.Name)</th>
-        <th>@Html.DisplayNameFor(model => model.PocUserId)</th>
-        <th>@Html.DisplayNameFor(model => model.DefaultLocation)</th>
-        <th>@Html.DisplayNameFor(model => model.Active)</th>
-        <th></th>
+      <td>@Html.DisplayFor(modelItem => item.Name)</td>
+
+      <td>@Html.ActionLink("Edit", "Edit", new { id = item.Id })</td>
     </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.Name)</td>
-            <td>@Html.DisplayFor(modelItem => item.PocUserId)</td>
-            <td>@Html.DisplayFor(modelItem => item.DefaultLocation)</td>
-            <td>@Html.DisplayFor(modelItem => item.Active)</td>
-            <td>@Html.ActionLink("Edit", "Edit", new { id = item.Id })</td>
-        </tr>
-    }
+  }
 </table>

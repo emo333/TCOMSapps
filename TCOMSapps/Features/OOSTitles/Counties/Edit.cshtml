@@ -1,43 +1,102 @@
-﻿@model TCOMSapps.Features.OOSTitles.entities.County
+﻿@model TCOMSapps.Features.OOSTitles.Counties.CountyViewModel
 @{ ViewBag.Title = "Edit County";}
 <br />
-<h3>EDIT COUNTY</h3>
+<h3>COUNTY SETTINGS</h3>
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-    <div>
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <input hidden asp-for="Id" />
-        <div class="form-group">
-            <label asp-for="Name" class="control-label col-md-2"></label>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="PocUserId" class="control-label col-md-2"></label>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PocUserId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PocUserId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="DefaultLocation" class="control-label col-md-2"></label>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DefaultLocation, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DefaultLocation, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="SharedData" class="control-label col-md-2"></label>
-            <div class="col-md-10"><div class="checkbox"><input asp-for="SharedData" type="checkbox" /></div></div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Active" class="control-label col-md-2"></label>
-            <div class="col-md-10"><div class="checkbox"><input asp-for="Active" type="checkbox" /></div></div>
-        </div>
-        <div class="form-group"><div class="col-md-10"><input type="submit" value="Save" class="btn btn-success" /></div></div>
+  @Html.AntiForgeryToken()
+  <div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <input hidden asp-for="County.Id" />
+    <div class="form-group">
+      <label asp-for="County.Name" class="control-label col-md-2"></label>
+      <div class="col-md-10">
+        @Html.EditorFor(model => model.County.Name, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.County.Name, "", new { @class = "text-danger" })
+      </div>
     </div>
+    <div class="form-group">
+      <label asp-for="County.DefaultLocation" class="control-label col-md-2"></label>
+      <div class="col-md-10">
+        <select asp-for="County.DefaultLocation" class="form-control">
+          @foreach (var county in Model.DefaultLocations)
+          {
+            <option id='@county.Id.ToString()' value="@county.Id.ToString()">@county.Name</option>
+          }
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label asp-for="County.OosTitleLetterTaxCollectorName" class="control-label col-md-2"></label>
+      <div class="col-md-10">
+        @Html.EditorFor(model => model.County.OosTitleLetterTaxCollectorName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.County.OosTitleLetterTaxCollectorName, "", new { @class = "text-danger" })
+      </div>
+    </div>
+    <div class="form-group">
+      <label asp-for="County.OosTitleEmailAddress" class="control-label col-md-2"></label>
+      <div class="col-md-10">
+        @Html.EditorFor(model => model.County.OosTitleEmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.County.OosTitleEmailAddress, "", new { @class = "text-danger" })
+      </div>
+    </div>
+    <div class="form-group">
+      <label asp-for="County.OosTitleLetterAddressLine1" class="control-label col-md-2"></label>
+      <div class="col-md-10">
+        @Html.EditorFor(model => model.County.OosTitleLetterAddressLine1, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.County.OosTitleLetterAddressLine1, "", new { @class = "text-danger" })
+      </div>
+    </div>
+    <div class="form-group">
+      <label asp-for="County.OosTitleLetterAddressLine2" class="control-label col-md-2"></label>
+      <div class="col-md-10">
+        @Html.EditorFor(model => model.County.OosTitleLetterAddressLine2, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.County.OosTitleLetterAddressLine2, "", new { @class = "text-danger" })
+      </div>
+    </div>
+    <div class="form-group">
+      <label asp-for="County.OosTitleLetterCity" class="control-label col-md-2"></label>
+      <div class="col-md-10">
+        @Html.EditorFor(model => model.County.OosTitleLetterCity, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.County.OosTitleLetterCity, "", new { @class = "text-danger" })
+      </div>
+    </div>
+    <div class="form-group">
+      <label asp-for="County.OosTitleLetterState" class="control-label col-md-2"></label>
+      <div class="col-md-10">
+        @Html.EditorFor(model => model.County.OosTitleLetterState, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.County.OosTitleLetterState, "", new { @class = "text-danger" })
+      </div>
+    </div>
+    <div class="form-group">
+      <label asp-for="County.OosTitleLetterZip" class="control-label col-md-2"></label>
+      <div class="col-md-10">
+        @Html.EditorFor(model => model.County.OosTitleLetterZip, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.County.OosTitleLetterZip, "", new { @class = "text-danger" })
+      </div>
+    </div>
+    <div class="form-group">
+      <label asp-for="County.OosTitleLetterWebsite" class="control-label col-md-2"></label>
+      <div class="col-md-10">
+        @Html.EditorFor(model => model.County.OosTitleLetterWebsite, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.County.OosTitleLetterWebsite, "", new { @class = "text-danger" })
+      </div>
+    </div>
+    <div class="form-group">
+      <label asp-for="County.OosTitlesCopyEmailAddress" class="control-label col-md-2"></label>
+      <div class="col-md-10">
+        @Html.EditorFor(model => model.County.OosTitlesCopyEmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.County.OosTitlesCopyEmailAddress, "", new { @class = "text-danger" })
+      </div>
+    </div>
+    <div class="form-group">
+      <label asp-for="County.OosTitleLetterPhoneNumbers" class="control-label col-md-2"></label>
+      <div class="col-md-10">
+        @Html.EditorFor(model => model.County.OosTitleLetterPhoneNumbers, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.County.OosTitleLetterPhoneNumbers, "", new { @class = "text-danger" })
+      </div>
+    </div>
+    <div class="form-group"><div class="col-md-10"><input type="submit" value="Save" class="btn btn-success" /></div></div>
+  </div>
 }
 @section Scripts {}
