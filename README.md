@@ -1,5 +1,7 @@
 # TCOMSapps - Out Of State Title Tracking
 
+## Note (8/1/2025): Do not use this project as-is due to it being based out-of-date .net dependencies.
+
 ### Requirements
 
  #### Recommended:
